@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PocketSmart AI — Plan Smarter. Spend Better.</title>
+  <meta name="description" content="AI-Powered Smart Budgeting and Recommendation Platform for Home Interiors, Events & Parties, and Luxury Jewelry. Powered by Google Gemini.">
+  
+  <!-- Google Fonts: Outfit (Luxury Headings) & Inter (UI Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for crisp luxury UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="brand-logo" onclick="switchView('landing-view')">
+        <div class="brand-icon">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <div>
+          <span class="brand-title">PocketSmart <span class="text-gold">AI</span></span>
+          <span class="brand-badge">Gemini Flash Pro</span>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li><a class="nav-link" id="nav-landing" onclick="switchView('landing-view')">Home</a></li>
+        <li><a class="nav-link" id="nav-dashboard" onclick="switchView('dashboard-view')">Dashboard</a></li>
+        <li><a class="nav-link" id="nav-home" onclick="openPlanner('home')">Home Interior</a></li>
+        <li><a class="nav-link" id="nav-party" onclick="openPlanner('party')">Party & Events</a></li>
+        <li><a class="nav-link" id="nav-jewelry" onclick="openPlanner('jewelry')">Jewelry Planner</a></li>
+        <li><a class="nav-link" id="nav-history" onclick="switchView('history-view')">History & Saved</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Currency Toggle -->
+        <button class="btn btn-secondary btn-sm" id="currencyToggleBtn" onclick="toggleCurrency()" title="Toggle Currency Display">
+          <i class="fa-solid fa-coins text-gold"></i> <span id="currencyLabel">INR (₹)</span>
+        </button>
+
+        <!-- Auth / Profile Button -->
+        <button class="btn btn-outline-gold btn-sm" id="authBtn" onclick="openAuthModal()">
+          <i class="fa-regular fa-user"></i> <span id="authBtnText">Sign In</span>
+        </button>
+
+        <!-- Create Plan CTA -->
+        <button class="btn btn-gold btn-sm" onclick="openPlanner('home')">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> <span>New Plan</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       1. LANDING PAGE VIEW
+       ========================================================================== -->
+  <main id="landing-view" class="view-container active">
+    <div class="container">
+      
+      <section class="hero-section">
+        <div class="ai-chip">
+          <span class="dot"></span> Powered by Google Gemini 1.5 Flash Pro • Autonomous Budget Allocation
+        </div>
+
+        <h1 class="hero-title">
+          Plan Smarter. <span class="text-gold">Spend Better.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Intelligent budget optimization, contingency forecasting, and verified multi-platform recommendations for Home Interiors, High-Energy Events, and Exquisite Jewelry.
+        </p>
+
+        <div class="hero-cta-group">
+          <button class="btn btn-gold btn-lg" onclick="openPlanner('home')">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Create Your Smart Plan
+          </button>
+          <button class="btn btn-outline-gold btn-lg" onclick="switchView('dashboard-view')">
+            <i class="fa-solid fa-chart-pie"></i> Explore Dashboard
+          </button>
+        </div>
+
+        <!-- 3 Core Planners Showcase Cards -->
+        <div class="planner-cards-grid">
+          <!-- Home Interior Card -->
+          <div class="planner-card" onclick="openPlanner('home')">
+            <div>
+              <div class="card-icon-box">
+                <i class="fa-solid fa-couch text-gold"></i>
+              </div>
+              <h3>Home Interior Planner</h3>
+              <p>Room configuration, furniture layout, modular wardrobes, ambient lighting, and texture styling within your target budget.</p>
+              <ul class="card-features-list">
+                <li><i class="fa-solid fa-check"></i> Room-by-room cost breakdown</li>
+                <li><i class="fa-solid fa-check"></i> Modular storage & lighting optimization</li>
+                <li><i class="fa-solid fa-check"></i> IKEA, Pepperfry, Urban Ladder & Amazon</li>
+              </ul>
+            </div>
+            <button class="btn btn-outline-gold" style="width: 100%;">Launch Home Planner &rarr;</button>
+          </div>
+
+          <!-- Party / Events Card -->
+          <div class="planner-card" onclick="openPlanner('party')">
+            <div>
+              <div class="card-icon-box">
+                <i class="fa-solid fa-champagne-glasses text-gold"></i>
+              </div>
+              <h3>Party & Event Planner</h3>
+              <p>From intimate birthday dinners to grand wedding celebrations. Smart per-guest catering, venue booking, decor, and photography.</p>
+              <ul class="card-features-list">
+                <li><i class="fa-solid fa-check"></i> Per-guest dynamic budget calculator</li>
+                <li><i class="fa-solid fa-check"></i> Swiggy & Zomato gourmet catering integration</li>
+                <li><i class="fa-solid fa-check"></i> OYO venue & BookMyShow entertainment</li>
+              </ul>
+            </div>
+            <button class="btn btn-outline-gold" style="width: 100%;">Launch Party Planner &rarr;</button>
+          </div>
+
+          <!-- Jewelry Card -->
+          <div class="planner-card" onclick="openPlanner('jewelry')">
+            <div>
+              <div class="card-icon-box">
+                <i class="fa-solid fa-ring text-gold"></i>
+              </div>
+              <h3>Jewelry & Styling</h3>
+              <p>Certified 22K gold, diamonds, and gemstones. Upload your outfit photo for Gemini multimodal color and neckline matching.</p>
+              <ul class="card-features-list">
+                <li><i class="fa-solid fa-check"></i> Multimodal outfit & neckline analysis</li>
+                <li><i class="fa-solid fa-check"></i> BIS Hallmark & making charge breakdown</li>
+                <li><i class="fa-solid fa-check"></i> Tanishq, CaratLane, Bluestone & Kalyan</li>
+              </ul>
+            </div>
+            <button class="btn btn-outline-gold" style="width: 100%;">Launch Jewelry Planner &rarr;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Supported Platforms Bar -->
+      <section class="stores-bar">
+        <h4>Extensible Multi-Platform Integration</h4>
+        <div class="stores-grid">
+          <div class="store-pill"><i class="fa-brands fa-amazon text-gold"></i> Amazon <span class="badge">E-Commerce</span></div>
+          <div class="store-pill"><i class="fa-solid fa-bag-shopping text-gold"></i> Flipkart <span class="badge">Retail</span></div>
+          <div class="store-pill"><i class="fa-solid fa-house text-gold"></i> IKEA <span class="badge">Furniture</span></div>
+          <div class="store-pill"><i class="fa-solid fa-couch text-gold"></i> Pepperfry <span class="badge">Interior</span></div>
+          <div class="store-pill"><i class="fa-solid fa-utensils text-gold"></i> Swiggy <span class="badge">Gourmet Catering</span></div>
+          <div class="store-pill"><i class="fa-solid fa-burger text-gold"></i> Zomato <span class="badge">Dining</span></div>
+          <div class="store-pill"><i class="fa-solid fa-hotel text-gold"></i> OYO <span class="badge">Venues</span></div>
+          <div class="store-pill"><i class="fa-solid fa-gem text-gold"></i> Tanishq <span class="badge">Certified Gold</span></div>
+          <div class="store-pill"><i class="fa-regular fa-gem text-gold"></i> CaratLane <span class="badge">Diamond Sets</span></div>
+          <div class="store-pill"><i class="fa-solid fa-ticket text-gold"></i> BookMyShow <span class="badge">Entertainment</span></div>
+        </div>
+      </section>
+
+      <!-- Benefits / Architecture Highlight -->
+      <section style="margin-top: 50px; background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: var(--radius-lg); padding: 40px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+          <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;"><i class="fa-solid fa-shield-halved text-gold"></i> 100% Financial Safety Buffer</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Every AI plan automatically factors in an 8-12% contingency reserve to prevent overspending on delivery, making charges, or unexpected expenses.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;"><i class="fa-solid fa-camera-retro text-gold"></i> Gemini Multimodal Vision</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Upload a photo of your party outfit, lehenga, or room space to let Gemini's vision models extract color palettes, textures, and matching silhouettes.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;"><i class="fa-solid fa-cloud text-gold"></i> Cloud Architecture Ready</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Architected for AWS CloudFront, API Gateway, Lambda, S3, and DynamoDB deployment with local zero-latency fallback.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       2. DASHBOARD VIEW
+       ========================================================================== -->
+  <main id="dashboard-view" class="view-container">
+    <div class="container">
+      <div class="dashboard-header">
+        <div>
+          <h2>Executive <span class="text-gold">Dashboard</span></h2>
+          <p style="color: var(--text-secondary);">Real-time budget allocation metrics, recent plans, and curated recommendations.</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-outline-gold btn-sm" onclick="fetchHistory()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+          <button class="btn btn-gold btn-sm" onclick="openPlanner('home')"><i class="fa-solid fa-plus"></i> New Plan</button>
+        </div>
+      </div>
+
+      <!-- KPI Stat Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+          <div class="stat-details">
+            <h5>Total Smart Plans</h5>
+            <div class="stat-value" id="statTotalPlans">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+          <div class="stat-details">
+            <h5>Total Budget Managed</h5>
+            <div class="stat-value" id="statTotalBudget">₹0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-heart"></i></div>
+          <div class="stat-details">
+            <h5>Saved Recommendations</h5>
+            <div class="stat-value" id="statSavedItems">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="stat-details">
+            <h5>Contingency Buffer Saved</h5>
+            <div class="stat-value" id="statContingencySaved">₹0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Launch Buttons -->
+      <div style="margin-bottom: 36px;">
+        <h3 style="font-size: 1.15rem; margin-bottom: 16px; color: var(--text-secondary);">Start a New AI Plan</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <div class="planner-card" style="padding: 20px; cursor: pointer;" onclick="openPlanner('home')">
+            <h4 style="font-size: 1.1rem; color: var(--gold-light); margin-bottom: 6px;"><i class="fa-solid fa-couch"></i> Home Interior</h4>
+            <p style="font-size: 0.85rem; margin-bottom: 0;">Furniture, lighting, wardrobes & decor planning</p>
+          </div>
+          <div class="planner-card" style="padding: 20px; cursor: pointer;" onclick="openPlanner('party')">
+            <h4 style="font-size: 1.1rem; color: var(--gold-light); margin-bottom: 6px;"><i class="fa-solid fa-champagne-glasses"></i> Party & Event</h4>
+            <p style="font-size: 0.85rem; margin-bottom: 0;">Birthdays, weddings, catering & venues</p>
+          </div>
+          <div class="planner-card" style="padding: 20px; cursor: pointer;" onclick="openPlanner('jewelry')">
+            <h4 style="font-size: 1.1rem; color: var(--gold-light); margin-bottom: 6px;"><i class="fa-solid fa-ring"></i> Jewelry Shopping</h4>
+            <p style="font-size: 0.85rem; margin-bottom: 0;">Certified gold, diamonds & outfit photo match</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Plans Table / Cards -->
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 1.15rem; color: var(--text-secondary);">Recent Budget Plans</h3>
+          <a onclick="switchView('history-view')" style="color: var(--gold-light); font-size: 0.85rem; cursor: pointer;">View All History &rarr;</a>
+        </div>
+        <div id="dashboardRecentPlansContainer">
+          <!-- Populated by JS -->
+          <div style="text-align: center; padding: 40px; background: var(--bg-card); border-radius: var(--radius-md); border: 1px dashed var(--gold-border);">
+            <p style="color: var(--text-muted);">No plans generated yet. Click "New Plan" above to create your first intelligent budget.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       3. HOME INTERIOR PLANNER WIZARD VIEW
+       ========================================================================== -->
+  <main id="home-planner-view" class="view-container">
+    <div class="container">
+      <div class="wizard-card">
+        <div class="wizard-header">
+          <h2>Home Interior <span class="text-gold">AI Planner</span></h2>
+          <p style="color: var(--text-secondary);">Customize your space requirements and let Gemini AI curate products and allocate funds.</p>
+        </div>
+
+        <!-- Stepper Progress Bar -->
+        <div class="wizard-progress">
+          <div class="progress-step active" id="home-step-indicator-1">
+            <div class="step-num">1</div>
+            <span>Space & Budget</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="home-step-indicator-2">
+            <div class="step-num">2</div>
+            <span>Style & Aesthetics</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="home-step-indicator-3">
+            <div class="step-num">3</div>
+            <span>Decor & Storage</span>
+          </div>
+        </div>
+
+        <form id="homeWizardForm" onsubmit="event.preventDefault();">
+          
+          <!-- STEP 1: Space & Budget -->
+          <div class="wizard-step-content active" id="home-step-1">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="homeBudget">Total Budget (INR ₹) <span class="required">*</span></label>
+                <input type="number" id="homeBudget" class="form-control" placeholder="e.g. 250000" value="250000" min="1000" required>
+              </div>
+              <div class="form-group">
+                <label for="homeLocation">City / Location</label>
+                <input type="text" id="homeLocation" class="form-control" placeholder="e.g. Mumbai, Bangalore, Delhi" value="Mumbai, India">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="homeRoomType">Property Configuration</label>
+                <select id="homeRoomType" class="form-control">
+                  <option value="1 BHK Apartment">1 BHK Apartment</option>
+                  <option value="2 BHK Apartment" selected>2 BHK Apartment</option>
+                  <option value="3 BHK Apartment">3 BHK Apartment</option>
+                  <option value="4 BHK Luxury Penthouse/Villa">4 BHK Luxury Penthouse / Villa</option>
+                  <option value="Studio Apartment">Studio Apartment</option>
+                  <option value="Single Room Makeover">Single Room Makeover</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="homeNumRooms">Room Breakdown</label>
+                <input type="text" id="homeNumRooms" class="form-control" placeholder="e.g. Master Bedroom, Guest Room, Living, Modular Kitchen" value="Master Bedroom, Guest Room, Living & Dining">
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <div></div>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('home', 1, 2)">Next: Style & Aesthetics &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Style & Aesthetics -->
+          <div class="wizard-step-content" id="home-step-2">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="homeStyle">Interior Design Style</label>
+                <select id="homeStyle" class="form-control">
+                  <option value="Modern Minimalist" selected>Modern Minimalist (Clean lines, functional luxe)</option>
+                  <option value="Scandinavian Warmth">Scandinavian Warmth (Light wood, cozy hygge)</option>
+                  <option value="Luxury Contemporary">Luxury Contemporary (Gold accents, marble, velvet)</option>
+                  <option value="Industrial Chic">Industrial Chic (Exposed brick, raw metal, loft style)</option>
+                  <option value="Bohemian Eclectic">Bohemian Eclectic (Vibrant patterns, greenery, rattan)</option>
+                  <option value="Japandi Zen">Japandi Zen (Natural bamboo, earthy muted neutrals)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="homeColors">Color Palette Preference</label>
+                <input type="text" id="homeColors" class="form-control" placeholder="e.g. Warm Beige, Charcoal & Brushed Gold" value="Warm Beige, Charcoal & Brushed Gold Accents">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="homeFurniture">Essential Furniture Checklist</label>
+              <textarea id="homeFurniture" class="form-control" rows="2" placeholder="e.g. L-shaped sectional sofa, King size bed with hydraulic storage, 4-seater glass dining table, ergonomic work desk">L-shaped sectional sofa, King size hydraulic bed, 4-seater dining table, ergonomic study desk, TV media console</textarea>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('home', 2, 1)">&larr; Back</button>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('home', 2, 3)">Next: Decor & Priorities &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Decor, Storage & Priorities -->
+          <div class="wizard-step-content" id="home-step-3">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="homeLighting">Lighting Preferences</label>
+                <input type="text" id="homeLighting" class="form-control" placeholder="e.g. 3000K Warm LED strip profiles, modern chandelier" value="Warm 3000K ambient LED cove, pendant dining lamp">
+              </div>
+              <div class="form-group">
+                <label for="homeDecor">Wall Decor & Furnishings</label>
+                <input type="text" id="homeDecor" class="form-control" placeholder="e.g. Canvas gallery wall art, sheer linen drapes, indoor planters" value="Canvas gallery wall art, textured blackout drapes, tall fiddle leaf planter">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="homeStorageFlooring">Modular Storage & Flooring</label>
+                <input type="text" id="homeStorageFlooring" class="form-control" placeholder="e.g. 4-door modular wardrobes, wooden vinyl flooring" value="Floor-to-ceiling modular wardrobes, hand-tufted wool rug">
+              </div>
+              <div class="form-group">
+                <label for="homePriorities">Special Constraints / Priorities</label>
+                <input type="text" id="homePriorities" class="form-control" placeholder="e.g. Maximize living room clearance, child-friendly rounded edges" value="Maximize space utility, long-lasting durability, elegant finish">
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('home', 3, 2)">&larr; Back</button>
+              <button type="button" class="btn btn-gold btn-lg" onclick="submitHomePlan()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Interior Plan
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       4. PARTY / EVENT PLANNER WIZARD VIEW
+       ========================================================================== -->
+  <main id="party-planner-view" class="view-container">
+    <div class="container">
+      <div class="wizard-card">
+        <div class="wizard-header">
+          <h2>Party & Event <span class="text-gold">AI Strategist</span></h2>
+          <p style="color: var(--text-secondary);">Comprehensive budgeting for venues, Swiggy/Zomato catering, decor themes, and entertainment.</p>
+        </div>
+
+        <div class="wizard-progress">
+          <div class="progress-step active" id="party-step-indicator-1">
+            <div class="step-num">1</div>
+            <span>Occasion & Guests</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="party-step-indicator-2">
+            <div class="step-num">2</div>
+            <span>Venue & Food</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="party-step-indicator-3">
+            <div class="step-num">3</div>
+            <span>Decor & Logistics</span>
+          </div>
+        </div>
+
+        <form id="partyWizardForm" onsubmit="event.preventDefault();">
+          
+          <!-- STEP 1: Occasion & Guests -->
+          <div class="wizard-step-content active" id="party-step-1">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyEventType">Event Category <span class="required">*</span></label>
+                <select id="partyEventType" class="form-control">
+                  <option value="Birthday Party" selected>Birthday Celebration</option>
+                  <option value="Wedding Reception">Wedding Reception</option>
+                  <option value="Engagement Ceremony">Engagement Ceremony</option>
+                  <option value="Anniversary Gala">Anniversary Gala</option>
+                  <option value="College Fest / Farewell">College Fest / Farewell</option>
+                  <option value="Corporate Mixer / Team Dinner">Corporate Mixer / Team Dinner</option>
+                  <option value="Cocktail & House Party">Cocktail & House Party</option>
+                  <option value="Custom Special Event">Custom Special Event</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="partyBudget">Total Event Budget (INR ₹) <span class="required">*</span></label>
+                <input type="number" id="partyBudget" class="form-control" placeholder="e.g. 60000" value="60000" min="1000" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyGuests">Total Expected Guests <span class="required">*</span></label>
+                <input type="number" id="partyGuests" class="form-control" placeholder="e.g. 40" value="40" min="1" required oninput="updateGuestBudgetPreview()">
+              </div>
+              <div class="form-group">
+                <label>Estimated Spend Per Guest</label>
+                <div class="form-control" style="background: rgba(200, 162, 74, 0.08); border-color: var(--gold-border); color: var(--gold-light); font-weight: 700;" id="partyPerGuestDisplay">
+                  ₹1,500.00 / guest
+                </div>
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <div></div>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('party', 1, 2)">Next: Venue & Catering &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Venue & Catering -->
+          <div class="wizard-step-content" id="party-step-2">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyLocation">City / Location</label>
+                <input type="text" id="partyLocation" class="form-control" placeholder="e.g. Bangalore, Mumbai" value="Bangalore, India">
+              </div>
+              <div class="form-group">
+                <label for="partyDate">Target Date / Timeline</label>
+                <input type="text" id="partyDate" class="form-control" placeholder="e.g. Next Saturday Evening" value="Upcoming Weekend Evening">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyVenue">Preferred Venue Type</label>
+                <select id="partyVenue" class="form-control">
+                  <option value="Boutique Banquet Hall (OYO / Hotel)" selected>Boutique Banquet Hall (OYO / Hotel)</option>
+                  <option value="Rooftop Lounge / Cafe">Rooftop Lounge / Cafe</option>
+                  <option value="Open Lawn / Farmhouse">Open Lawn / Farmhouse</option>
+                  <option value="Private Home / Apartment Clubhouse">Private Home / Apartment Clubhouse</option>
+                  <option value="Resort Weekend Stay">Resort Weekend Stay</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="partyFood">Catering & Menu Style (Swiggy / Zomato / Gourmet)</label>
+                <input type="text" id="partyFood" class="form-control" placeholder="e.g. Multi-cuisine Buffet, Live Starters, Mocktail Bar, Designer Cake" value="Multi-cuisine Buffet, Live Starters, Mocktail Bar, Tiered Designer Cake">
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('party', 2, 1)">&larr; Back</button>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('party', 2, 3)">Next: Decor & Entertainment &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Decor, Photography & Entertainment -->
+          <div class="wizard-step-content" id="party-step-3">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyDecoration">Theme & Decoration Aesthetic</label>
+                <input type="text" id="partyDecoration" class="form-control" placeholder="e.g. Black & Gold Metallic Balloon Garland, Fairy Light Photobooth" value="Black & Gold Metallic Balloon Arch, Neon Quote Sign, Fairy Light Backdrop">
+              </div>
+              <div class="form-group">
+                <label for="partyPhotography">Photography / Videography</label>
+                <input type="text" id="partyPhotography" class="form-control" placeholder="e.g. Candid photographer (3 hours), Instagram Reels coverage" value="Candid photographer (3 hours session) + 1 Edited Highlight Reel">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="partyEntertainment">Music & Entertainment</label>
+                <input type="text" id="partyEntertainment" class="form-control" placeholder="e.g. DJ Sound & Lights Setup, Live Acoustic Singer" value="Professional DJ with High-Power Sound & Laser Lights">
+              </div>
+              <div class="form-group">
+                <label for="partyAccommodation">Accommodation & Logistics</label>
+                <input type="text" id="partyAccommodation" class="form-control" placeholder="e.g. Self transport, 2 rooms for close family" value="Local transport, 1 changing room for host family">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="partyPriorities">Special Notes & Vibe Priorities</label>
+              <input type="text" id="partyPriorities" class="form-control" placeholder="e.g. High energy dance floor, premium mocktails" value="Energetic social vibe, seamless food refills, great photo spots">
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('party', 3, 2)">&larr; Back</button>
+              <button type="button" class="btn btn-gold btn-lg" onclick="submitPartyPlan()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Event Strategy
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       5. JEWELRY & MULTIMODAL PLANNER WIZARD VIEW
+       ========================================================================== -->
+  <main id="jewelry-planner-view" class="view-container">
+    <div class="container">
+      <div class="wizard-card">
+        <div class="wizard-header">
+          <h2>Jewelry & Multimodal <span class="text-gold">AI Stylist</span></h2>
+          <p style="color: var(--text-secondary);">Certified gold, diamond, and gemstone curation. Upload your outfit photo for AI vision styling.</p>
+        </div>
+
+        <div class="wizard-progress">
+          <div class="progress-step active" id="jewelry-step-indicator-1">
+            <div class="step-num">1</div>
+            <span>Category & Budget</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="jewelry-step-indicator-2">
+            <div class="step-num">2</div>
+            <span>Metals & Gems</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="progress-step" id="jewelry-step-indicator-3">
+            <div class="step-num">3</div>
+            <span>Vision & Photo Match</span>
+          </div>
+        </div>
+
+        <form id="jewelryWizardForm" onsubmit="event.preventDefault();">
+          
+          <!-- STEP 1: Category & Budget -->
+          <div class="wizard-step-content active" id="jewelry-step-1">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jewelryCategory">Jewelry Category <span class="required">*</span></label>
+                <select id="jewelryCategory" class="form-control">
+                  <option value="Bridal & Festive Necklace Set" selected>Bridal & Festive Necklace Set</option>
+                  <option value="Choker & Long Haar Combo">Choker & Long Haar Combo</option>
+                  <option value="Diamond Solitaire Ring & Bands">Diamond Solitaire Ring & Bands</option>
+                  <option value="Chandbali / Jhumka Statement Earrings">Chandbali / Jhumka Statement Earrings</option>
+                  <option value="22K Gold Bangles / Kada Set">22K Gold Bangles / Kada Set</option>
+                  <option value="Contemporary Daily Wear Luxe">Contemporary Daily Wear Luxe</option>
+                  <option value="Men's Luxury Gold Chain & Ring">Men's Luxury Gold Chain & Ring</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="jewelryBudget">Target Budget (INR ₹) <span class="required">*</span></label>
+                <input type="number" id="jewelryBudget" class="form-control" placeholder="e.g. 120000" value="120000" min="1000" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jewelryOccasion">Occasion / Milestone</label>
+                <input type="text" id="jewelryOccasion" class="form-control" placeholder="e.g. Wedding Reception, Engagement, Festive Diwali" value="Wedding Reception / Sangeet Ceremony">
+              </div>
+              <div class="form-group">
+                <label for="jewelryPlatform">Preferred Jeweller / Brand</label>
+                <select id="jewelryPlatform" class="form-control">
+                  <option value="Tanishq & CaratLane" selected>Tanishq & CaratLane (Certified Hallmark)</option>
+                  <option value="BlueStone">BlueStone (100% Certified Diamond & Gold)</option>
+                  <option value="Kalyan Jewellers">Kalyan Jewellers (Traditional Trust)</option>
+                  <option value="Amazon & Myntra Fine Jewelry">Amazon & Myntra Fine Jewelry</option>
+                  <option value="Any Verified Store">Any Verified BIS Jeweller</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <div></div>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('jewelry', 1, 2)">Next: Metal & Gemstones &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Metal, Gemstones & Style -->
+          <div class="wizard-step-content" id="jewelry-step-2">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jewelryMetal">Precious Metal Purity</label>
+                <select id="jewelryMetal" class="form-control">
+                  <option value="22K Yellow Gold (BIS 916)" selected>22K Yellow Gold (BIS 916 Hallmark)</option>
+                  <option value="18K Rose Gold & Diamond">18K Rose Gold & Diamond</option>
+                  <option value="18K White Gold & Diamond">18K White Gold & Diamond</option>
+                  <option value="950 Pure Platinum">950 Pure Platinum</option>
+                  <option value="Antique Kundan Gold Plated">Antique Kundan & Temple Brass Finish</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="jewelryGemstone">Gemstones & Studding</label>
+                <input type="text" id="jewelryGemstone" class="form-control" placeholder="e.g. Natural Emeralds, Uncut Polki, VVS Diamonds" value="Natural Emeralds, Uncut Polki & Certified Diamonds">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="jewelryStyle">Design Aesthetics</label>
+                <select id="jewelryStyle" class="form-control">
+                  <option value="Traditional Royal Kundan & Polki" selected>Traditional Royal Kundan & Polki</option>
+                  <option value="Minimalist Contemporary Diamond">Minimalist Contemporary Diamond</option>
+                  <option value="South Indian Temple Heirloom">South Indian Temple Heirloom</option>
+                  <option value="Victorian Floral Filigree">Victorian Floral Filigree</option>
+                  <option value="Modern Geometric Fusion">Modern Geometric Fusion</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="jewelryColor">Color / Tonal Accents</label>
+                <input type="text" id="jewelryColor" class="form-control" placeholder="e.g. Warm Antique Gold with Deep Emerald Drops" value="Warm Antique Gold with Deep Emerald Drops">
+              </div>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('jewelry', 2, 1)">&larr; Back</button>
+              <button type="button" class="btn btn-gold" onclick="wizardNext('jewelry', 2, 3)">Next: Multimodal Vision Match &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Multimodal Vision Image Upload & Notes -->
+          <div class="wizard-step-content" id="jewelry-step-3">
+            
+            <div class="form-group">
+              <label>Optional: Upload Outfit / Reference Photo for Gemini Vision AI</label>
+              <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 12px;">
+                Gemini Multimodal AI will inspect the neckline, fabric texture, embroidery metallics, and dress color to curate perfectly matching pieces.
+              </p>
+
+              <!-- Drag & Drop Zone -->
+              <div class="upload-dropzone" id="jewelryDropzone" onclick="document.getElementById('jewelryImageInput').click()">
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <h4>Drag & Drop your outfit photo here</h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">or click to browse from device (PNG, JPG, WebP up to 10MB)</p>
+                <input type="file" id="jewelryImageInput" accept="image/*" style="display: none;" onchange="handleImageSelected(this)">
+              </div>
+
+              <!-- Live Image Preview Container -->
+              <div class="image-preview-container" id="imagePreviewBox">
+                <img id="imagePreviewImg" class="image-preview-img" src="" alt="Selected Outfit">
+                <button type="button" class="btn-remove-img" onclick="clearSelectedImage()" title="Remove Image">&times;</button>
+                <p style="font-size: 0.8rem; color: var(--gold-light); margin-top: 8px;" id="imagePreviewCaption">Ready for Gemini Multimodal Analysis</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="jewelryNotes">Styling Notes & Neckline Description</label>
+              <textarea id="jewelryNotes" class="form-control" rows="2" placeholder="e.g. Deep sweetheart neckline maroon velvet lehenga with antique gold zardozi embroidery.">Deep sweetheart neckline maroon velvet lehenga with antique gold zardozi embroidery and emerald beads.</textarea>
+            </div>
+
+            <div class="wizard-nav-btns">
+              <button type="button" class="btn btn-secondary" onclick="wizardPrev('jewelry', 3, 2)">&larr; Back</button>
+              <button type="button" class="btn btn-gold btn-lg" onclick="submitJewelryPlan()">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Jewelry Plan
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       6. RESULTS & RECOMMENDATIONS VIEW
+       ========================================================================== -->
+  <main id="results-view" class="view-container">
+    <div class="container">
+      
+      <!-- Top Action Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <button class="btn btn-secondary btn-sm" onclick="history.back() || switchView('dashboard-view')">&larr; Back</button>
+          <span style="margin-left: 12px; font-size: 0.9rem; color: var(--text-muted);" id="resultsPlannerBadge">Home Interior Plan</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-outline-gold btn-sm" onclick="exportPlanJSON()"><i class="fa-solid fa-download"></i> Export JSON</button>
+          <button class="btn btn-secondary btn-sm" onclick="window.print()"><i class="fa-solid fa-print"></i> Print</button>
+          <button class="btn btn-gold btn-sm" onclick="openActivePlannerAgain()"><i class="fa-solid fa-pen-to-square"></i> Modify Plan</button>
+        </div>
+      </div>
+
+      <!-- Financial Verdict Banner -->
+      <div class="results-header-card">
+        <h2 style="font-size: 1.6rem; margin-bottom: 12px;" id="resultsTitle">Smart Allocation & Recommendations</h2>
+        <div class="verdict-banner" id="resultsVerdict">
+          Analyzing budget feasibility and value optimization...
+        </div>
+
+        <!-- KPI Breakdown Grid -->
+        <div class="budget-breakdown-grid">
+          <div class="breakdown-card">
+            <div class="breakdown-label">Total Target Budget</div>
+            <div class="breakdown-amount text-gold" id="resTotalBudget">₹0</div>
+          </div>
+          <div class="breakdown-card highlight">
+            <div class="breakdown-label">Estimated Total Spend</div>
+            <div class="breakdown-amount" id="resEstimatedSpend">₹0</div>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-label">Contingency Safety Buffer</div>
+            <div class="breakdown-amount" style="color: var(--accent-amber);" id="resContingency">₹0</div>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-label">Remaining Unallocated</div>
+            <div class="breakdown-amount" style="color: var(--accent-emerald);" id="resRemaining">₹0</div>
+          </div>
+        </div>
+
+        <!-- Visual Allocations Stacked Bar -->
+        <div class="allocations-bar-wrapper">
+          <h4>Category Budget Allocation</h4>
+          <div class="allocation-stacked-bar" id="allocStackedBar">
+            <!-- Segments injected by JS -->
+          </div>
+          <div class="alloc-legend" id="allocLegend">
+            <!-- Legend items injected by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Multimodal Vision Analysis Spotlight (For Jewelry) -->
+      <div id="multimodalSpotlightCard" style="display: none; background: var(--bg-card); border: 1px solid var(--gold-border); border-radius: var(--radius-md); padding: 24px; margin-bottom: 30px;">
+        <h3 style="font-size: 1.15rem; color: var(--gold-light); margin-bottom: 12px;"><i class="fa-solid fa-eye"></i> Gemini Multimodal Vision Insights</h3>
+        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+          <img id="multimodalResultImg" src="" style="width: 120px; height: 120px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--gold-border);" alt="Outfit">
+          <div style="flex: 1;">
+            <p style="font-size: 0.9rem; color: var(--text-primary); margin-bottom: 6px;" id="multimodalOutfitDetails"></p>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);" id="multimodalHarmonyDetails"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations Header & Filter Bar -->
+      <div class="results-filter-bar">
+        <div>
+          <h3 style="font-size: 1.3rem;">Curated Shopping & Service Recommendations</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Verified platforms with direct deep search links and transparent pricing.</p>
+        </div>
+
+        <div class="filter-chips" id="recommendationFilterChips">
+          <button class="filter-chip active" onclick="filterRecommendations('all')">All Items</button>
+          <button class="filter-chip" onclick="filterRecommendations('Best Match')">Best Match</button>
+          <button class="filter-chip" onclick="filterRecommendations('Premium Choice')">Premium</button>
+          <button class="filter-chip" onclick="filterRecommendations('Budget Friendly')">Budget Friendly</button>
+        </div>
+      </div>
+
+      <!-- Recommendation Cards Grid -->
+      <div class="recommendations-grid" id="recommendationsGrid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Pro Tips & Pragmatic Warnings Row -->
+      <div class="tips-warnings-row">
+        <div class="pro-tips-card">
+          <h4><i class="fa-solid fa-lightbulb"></i> AI Expert Planning Tips</h4>
+          <ul class="tips-list" id="tipsList">
+            <!-- Tips injected by JS -->
+          </ul>
+        </div>
+        <div class="pro-tips-card" style="border-color: rgba(245, 158, 11, 0.3);">
+          <h4 style="color: var(--accent-amber);"><i class="fa-solid fa-triangle-exclamation"></i> Budget & Market Considerations</h4>
+          <ul class="tips-list" id="warningsList">
+            <!-- Warnings injected by JS -->
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       7. HISTORY & SAVED ITEMS VIEW
+       ========================================================================== -->
+  <main id="history-view" class="view-container">
+    <div class="container">
+      <div class="dashboard-header">
+        <div>
+          <h2>Plan History & <span class="text-gold">Saved Items</span></h2>
+          <p style="color: var(--text-secondary);">Access all previously generated AI allocations and your favorited products.</p>
+        </div>
+        <div class="filter-chips">
+          <button class="filter-chip active" id="tabHistoryPlans" onclick="switchHistoryTab('plans')">Smart Plans</button>
+          <button class="filter-chip" id="tabHistorySaved" onclick="switchHistoryTab('saved')">Saved Recommendations</button>
+        </div>
+      </div>
+
+      <!-- Plans Container -->
+      <div id="historyPlansContainer">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Saved Items Container -->
+      <div id="historySavedItemsContainer" style="display: none;">
+        <div class="recommendations-grid" id="savedItemsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       LOADING SKELETON & SPINNER OVERLAY
+       ========================================================================== -->
+  <div class="loading-overlay" id="globalLoadingOverlay">
+    <div class="gold-spinner"></div>
+    <h3 style="font-size: 1.3rem; margin-bottom: 8px;">PocketSmart AI is Crafting Your Plan</h3>
+    <p style="color: var(--text-secondary); font-size: 0.9rem;" id="loadingStatusText">
+      Consulting Gemini models, allocating budget categories & generating vendor links...
+    </p>
+  </div>
+
+  <!-- ==========================================================================
+       AUTH & USER PROFILE MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+      
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" id="modalTabSignIn" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="modal-tab-btn" id="modalTabSignUp" onclick="switchAuthTab('signup')">Create Account</button>
+        <button class="modal-tab-btn" id="modalTabProfile" style="display: none;" onclick="switchAuthTab('profile')">User Profile</button>
+      </div>
+
+      <!-- SIGN IN FORM -->
+      <form id="signInForm" onsubmit="handleSignIn(event)">
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="name@example.com" value="demo@pocketsmart.ai" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" value="pocketsmart123" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px;">Sign In to PocketSmart</button>
+        
+        <div style="text-align: center; margin-top: 16px;">
+          <button type="button" class="btn btn-secondary btn-sm" style="width: 100%;" onclick="quickGuestLogin()">
+            <i class="fa-solid fa-bolt text-gold"></i> 1-Click Instant Guest Login
+          </button>
+        </div>
+      </form>
+
+      <!-- SIGN UP FORM -->
+      <form id="signUpForm" style="display: none;" onsubmit="handleSignUp(event)">
+        <div class="form-group">
+          <label for="regName">Full Name</label>
+          <input type="text" id="regName" class="form-control" placeholder="Alexander Vance" required>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" class="form-control" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password (Min. 6 chars)</label>
+          <input type="password" id="regPassword" class="form-control" placeholder="••••••••" minlength="6" required>
+        </div>
+        <div class="form-group">
+          <label for="regCity">City / Location</label>
+          <input type="text" id="regCity" class="form-control" placeholder="Mumbai, India" value="Mumbai, India">
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px;">Create Free Account</button>
+      </form>
+
+      <!-- USER PROFILE & SETTINGS TAB -->
+      <div id="profileTabContent" style="display: none;">
+        <div class="form-group">
+          <label>Logged in as</label>
+          <p style="color: var(--gold-light); font-weight: 600;" id="profileEmailDisplay">demo@pocketsmart.ai</p>
+        </div>
+        <div class="form-group">
+          <label for="profileName">Full Name</label>
+          <input type="text" id="profileName" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="profileLocation">Default City</label>
+          <input type="text" id="profileLocation" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="customGeminiKeyInput">Custom Gemini API Key (Optional)</label>
+          <input type="password" id="customGeminiKeyInput" class="form-control" placeholder="AIzaSy...">
+          <small style="color: var(--text-muted); font-size: 0.75rem;">Stored locally in your browser session for direct Gemini generation.</small>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-gold" style="flex: 1;" onclick="saveUserProfile()">Save Changes</button>
+          <button type="button" class="btn btn-secondary" onclick="handleLogout()">Sign Out</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       TOAST CONTAINER
+       ========================================================================== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="app-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a onclick="switchView('landing-view')">Home</a></li>
+        <li><a onclick="openPlanner('home')">Home Planner</a></li>
+        <li><a onclick="openPlanner('party')">Party Planner</a></li>
+        <li><a onclick="openPlanner('jewelry')">Jewelry Planner</a></li>
+        <li><a onclick="switchView('history-view')">History</a></li>
+        <li><a href="/api/health" target="_blank">API Health Status</a></li>
+      </ul>
+      <p style="margin-bottom: 8px;">
+        PocketSmart AI © 2026 — Next-Generation Generative Financial & Lifestyle Planning.
+      </p>
+      <p style="font-size: 0.78rem; color: var(--text-muted);">
+        Amazon CloudFront • API Gateway • AWS Lambda • Google Gemini 1.5 Flash Pro • Multi-Platform Verified Adapters
+      </p>
+    </div>
+  </footer>
+
+  <!-- Core Javascript Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
