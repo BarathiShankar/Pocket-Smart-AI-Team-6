@@ -1,4 +1,4 @@
-# 💰 PocketSmart AI
+# PocketSmart AI
 
 ## AI-Powered Personal Budget Planning Assistant
 
@@ -8,7 +8,7 @@ Instead of performing only basic calculations, PocketSmart AI uses **Google Gemi
 
 ---
 
-## 🎯 Problem
+##  Problem
 
 Managing personal finances can be difficult because users have:
 
@@ -22,7 +22,7 @@ Traditional budgeting applications mainly calculate expenses, while users still 
 
 ---
 
-## 💡 Solution
+##  Solution
 
 PocketSmart AI combines:
 
@@ -44,9 +44,9 @@ Users can simply describe their financial situation and receive an understandabl
 
 ---
 
-## ⭐ Features
+##  Features
 
-### 💰 Budget Planning
+###  Budget Planning
 
 Calculate:
 
@@ -56,11 +56,11 @@ Calculate:
 * Remaining balance
 * Budget deficit
 
-### 🤖 AI Recommendations
+###  AI Recommendations
 
 Uses Gemini AI to understand user requirements and generate personalized suggestions.
 
-### 💬 Natural Language Input
+###  Natural Language Input
 
 Example:
 
@@ -73,7 +73,7 @@ I want to save ₹8,000.
 Can I spend ₹4,000 on entertainment?
 ```
 
-### ⭐ Priority-Based Expenses
+###  Priority-Based Expenses
 
 Expenses can be classified as:
 
@@ -83,7 +83,7 @@ Important
 Optional
 ```
 
-### 🎯 Savings Goals
+###  Savings Goals
 
 Users can specify a target such as:
 
@@ -91,7 +91,7 @@ Users can specify a target such as:
 Monthly Savings = ₹10,000
 ```
 
-### ⚠️ Overspending Detection
+###  Overspending Detection
 
 ```text
 Budget = ₹30,000
@@ -104,7 +104,7 @@ The system identifies the budget problem and generates recommendations.
 
 ---
 
-# 🧠 AI Workflow
+#  AI Workflow
 
 ```text
 Natural Language Input
@@ -126,7 +126,7 @@ Dashboard
 
 ---
 
-# 🏗️ Architecture
+#  Architecture
 
 ```text
               USER
@@ -165,7 +165,7 @@ Dashboard
 
 ---
 
-# 🛠️ Technology Stack
+#  Technology Stack
 
 ## Frontend
 
@@ -204,218 +204,7 @@ Python
 
 ---
 
-# 📂 Project Structure
-
-```text
-PocketSmart-AI/
-│
-├── backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── .env
-│   ├── routes/
-│   ├── services/
-│   ├── models/
-│   └── utils/
-│
-├── frontend/
-│   ├── package.json
-│   ├── public/
-│   └── src/
-│       ├── components/
-│       ├── services/
-│       ├── styles/
-│       ├── App.jsx
-│       └── main.jsx
-│
-├── README.md
-└── .gitignore
-```
-
----
-
-# ⚙️ Installation
-
-## 1. Clone Repository
-
-```bash
-git clone https://github.com/BarathiShankar/Pocket_Smart_AI
-cd PocketSmart-AI
-```
-
----
-
-## 2. Backend Setup
-
-```bash
-cd backend
-python -m venv venv
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Linux/macOS
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# 🔐 Environment Variables
-
-Create:
-
-```text
-backend/.env
-```
-
-Add:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key
-```
-
-Never upload `.env` to GitHub.
-
-Add:
-
-```gitignore
-.env
-venv/
-__pycache__/
-node_modules/
-dist/
-```
-
----
-
-# ▶️ Run Backend
-
-```bash
-uvicorn main:app --reload
-```
-
-Backend:
-
-```text
-http://127.0.0.1:8000
-```
-
-API documentation:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
----
-
-# ⚛️ Run Frontend
-
-Open another terminal:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open the local URL provided by Vite.
-
----
-
-# 🔌 API
-
-## Health Check
-
-```http
-GET /api/health
-```
-
-## Budget Analysis
-
-```http
-POST /api/budget/analyze
-```
-
-Example request:
-
-```json
-{
-  "budget": 50000,
-  "savings_goal": 10000,
-  "expenses": [
-    {
-      "category": "Rent",
-      "amount": 12000
-    },
-    {
-      "category": "Food",
-      "amount": 6000
-    },
-    {
-      "category": "Transport",
-      "amount": 3000
-    }
-  ],
-  "requirements": "I want to spend some money on entertainment."
-}
-```
-
-Example response:
-
-```json
-{
-  "budget": 50000,
-  "total_expenses": 21000,
-  "savings_goal": 10000,
-  "remaining_budget": 19000,
-  "status": "within_budget",
-  "recommendations": [
-    "Maintain your savings target.",
-    "Reserve part of the remaining budget for emergencies."
-  ]
-}
-```
-
----
-
-# 🧮 Budget Logic
-
-```text
-Total Expenses =
-Expense 1 + Expense 2 + Expense 3 + ...
-
-Total Allocation =
-Total Expenses + Savings
-
-Remaining Budget =
-Available Budget - Total Allocation
-```
-
-Example:
-
-```text
-Budget        = ₹50,000
-Expenses      = ₹21,000
-Savings       = ₹10,000
-
-Remaining     = ₹19,000
-```
-
----
-
-# 📊 Dashboard
+#  Dashboard
 
 The dashboard can display:
 
@@ -443,7 +232,7 @@ The dashboard can display:
 
 ---
 
-# 🔐 Security
+#  Security
 
 PocketSmart AI follows basic security practices:
 
@@ -466,7 +255,7 @@ Gemini API
 
 ---
 
-# 🧪 Example Test Cases
+#  Example Test Cases
 
 ### Normal Budget
 
@@ -497,7 +286,7 @@ Result = Invalid / No available budget
 
 ---
 
-# 🚀 Future Enhancements
+#  Future Enhancements
 
 Planned improvements can include:
 
@@ -514,7 +303,7 @@ Planned improvements can include:
 
 ---
 
-# ⚠️ Disclaimer
+#  Disclaimer
 
 PocketSmart AI is an **AI-assisted budgeting application** intended for general budgeting and educational purposes.
 
@@ -524,22 +313,11 @@ Users should verify important financial decisions independently and consult a qu
 
 ---
 
-# 👨‍💻 Project
+#  Contributors 
+- Gogul ( Team Leader )
+- Sameer Ahamed 
+- Sabarirajan
+- Kawin
+- Barathi Shankar
 
-## PocketSmart AI
-
-**AI-Powered Personal Budget Planning Assistant**
-
-```text
-React
-+
-Python
-+
-FastAPI
-+
-Google Gemini AI
-=
-PocketSmart AI
-```
-
-### Plan Smarter. Spend Better. Save with Confidence. 💰
+### Plan Smarter. Spend Better. Save with Confidence. 
